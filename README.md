@@ -1,7 +1,7 @@
 # Curl_Request
 a simple query tool for http requests GET POST OPTION PUT PATCH DELETE
 
-How to use:
+## How to use:
 
 You can create an instance by assigning the token and the token type
 ```php
@@ -39,10 +39,10 @@ $data = array(
 )
 $request->POST("http://api.com", $data)
 ```
-Note:
+**Note:
 if the header is empty, assign these by default
   "Content-Type: application/json",
-  "Accept: application/json"
+  "Accept: application/json"**
 
 By default it does not do a json_encode but it can be assigned in the following way
 ```php
@@ -68,4 +68,4 @@ $data = array(
 )
 $request->GET("http://api.com", $data)
 ```
-I hope it is useful to you as it was for me, regards :)
+## **I hope it is useful to you as it was for me, regards :)**
