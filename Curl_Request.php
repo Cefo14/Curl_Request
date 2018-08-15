@@ -23,7 +23,7 @@
 		
 		public function setType($type)
 		{
-			$this->type = $type;
+			$this->type = ucfirst(strtolower($type));
 		}
 
 		public function getType()
