@@ -43,7 +43,7 @@
 				);
 			
 			if($this->token != null && $this->type)
-				$headers[] = "Authorization: " $this->type . " " .  $this->token;
+				$headers[] = "Authorization: " . $this->type . " " .  $this->token;
 			return $headers;
 		}
 
