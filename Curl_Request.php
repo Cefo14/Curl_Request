@@ -6,9 +6,8 @@
 
 		public function __construct($data = array())
 		{
-
-			$this->token = $data["token"] ? $data["token"] : null;
-			$this->type = $data["type"] ? ucfirst(strtolower($data["type"])) : null;
+			$this->token = isset($data["token"]) ? $data["token"] : null;
+			$this->type = isset($data["type"]) ? ucfirst(strtolower($data["type"])) : null;
 		}
 		
 		public function setToken($token)
@@ -33,7 +32,7 @@
 
 		private function getHeaders($data)
 		{
-			if($data["headers"])
+			if(isset($data["headers"]))
 				$headers = $data["headers"];
 			
 			else
@@ -42,7 +41,7 @@
 					"Accept: application/json"
 				);
 			
-			if($this->token != null && $this->type)
+			if($this->token != null && $this->type != null)
 				$headers[] = "Authorization: " . $this->type . " " .  $this->token;
 			return $headers;
 		}
@@ -50,20 +49,22 @@
 		private function getFields($data)
 		{
 			$fields;
-			if($data["fields"])
+			if(isset($data["fields"]))
 			{
 				$fields = $data["fields"];
-				if($data["json"])
+				if(isset($data["json"]))
 					$fields = json_encode($fields, JSON_UNESCAPED_SLASHES);
-				else if($data["url"])
+				else if(isset($data["url"]))
 					$fields = http_build_query($fields);
 			}
 			
 			return $fields;
 		}
 
-		private function encodeUrl($url, $data)
+		private function encodeUrl($url, $fields)
 		{
+			if(is_array($fields))
+				$fields = http_build_query($fields);
 			return $url . "?" . $fields;
 		}
 		
@@ -72,7 +73,7 @@
 			$headers = self::getHeaders($data);
 			$fields = self::getFields($data);
 			$type = strtoupper($type);
-			
+
 			$curl = curl_init();
 			
 			if($type == "GET" && $fields)
@@ -86,10 +87,8 @@
 			
 			if($type == "GET")
 				curl_setopt($curl, CURLOPT_HTTPGET, TRUE);
-
 			else if($type == "POST")
 				curl_setopt($curl, CURLOPT_POST, TRUE);
-
 			else 
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
 			
