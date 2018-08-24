@@ -56,7 +56,7 @@ $data = array(
 )
 $request->PUT("http://api.com", $data)
 ```
-for convenience you can also do an http_build_query for the GET method as follows
+For your convenience when making a GET request the **"fields"** are encoded and concatenated with http_build_query, you can also do it manually in the following way:
 ```php
 $data = array(
   "fields" => [
